@@ -14,10 +14,12 @@ class ProjectTasksController extends Controller
 
 //        dd(request()->all());
 
-        $task->update([
+       // $task->complete(request()->has('completed'));
 
-            'completed'=>request()->has('completed'),
-        ]);
+        $method=request()->has('completed')? 'complete':'incomplete';
+
+        $task->$method();
+
 
         return back();
     }
