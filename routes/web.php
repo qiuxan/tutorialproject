@@ -18,9 +18,9 @@
 //    return new \App\Example;
 //});
 
-Route::get('/', function (\App\Repositories\UserRepository $user) {
+Route::get('/', function (\App\Services\Twitter $twitter) {
 
-    dd($user);
+    dd($twitter);
     return view('welcome');
 });
 

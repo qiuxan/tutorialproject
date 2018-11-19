@@ -18,7 +18,7 @@ class SocialServicesProvider extends ServiceProvider
         //
         $this->app->singleton(Twitter::class,function (){
 
-            return new Twitter('api-key');
+            return new Twitter(config('services.twitter.key'));
         });
     }
 
