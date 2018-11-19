@@ -38,6 +38,8 @@
         </div>
     @endif
 
+    {{--@can('update',$project)--}}
+
     {{--add a new task form--}}
 
     <form action="/projects/{{$project->id}}/tasks" method="POST" class="box">
@@ -59,4 +61,8 @@
             </div>
         </div>
     </form>
+    {{--@endcan--}}
+
+
+
 @endsection

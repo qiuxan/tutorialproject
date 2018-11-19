@@ -6,6 +6,7 @@ use App\Project;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 
+
 class ProjectsController extends Controller
 {
 
@@ -121,6 +122,8 @@ class ProjectsController extends Controller
 
     public function update(Project $project){
 
+        $this->authorize('update',$project);
+
         $project->update(request(['title','description']));
 //
 ////        dd(request()->all());
@@ -148,6 +151,8 @@ class ProjectsController extends Controller
 
     public function destroy(Project $project){
 
+        $this->authorize('update',$project);
+
 //        $project=Project::findOrFail($id);
 
         $project->delete();
@@ -163,6 +168,12 @@ class ProjectsController extends Controller
 //    }
 
     public function show(Project $project){
+
+        $this->authorize('update',$project);
+
+//        abort_if(auth()->id()!==$project->owner_id,403);
+
+
 
 //        $project=Project::find($id);
         return view('projects/show',compact('project'));
