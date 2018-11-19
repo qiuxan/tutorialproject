@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 class ProjectsController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index(){
 
         $projects=Project::all();
@@ -59,15 +64,21 @@ class ProjectsController extends Controller
 //
 //        ]);
 
+       // dd(auth()->id());
 
 
-        Project::create(request()->validate([
-
-            'title'=>['required','min:3','max:255'],
-            'description'=>['required','min:3'],
+        $attribute=(['owner_id'=>auth()->id()]+request()->validate([
 
 
-        ]));
+                'title'=>['required','min:3','max:255'],
+                'description'=>['required','min:3'],
+
+
+            ]));
+
+//        dd($attribute);
+
+        Project::create($attribute);
 
         return redirect('/projects');
 
@@ -151,19 +162,19 @@ class ProjectsController extends Controller
 //        return view('projects/show',compact('project'));
 //    }
 
-//    public function show(Project $project){
-//
-////        $project=Project::find($id);
-//        return view('projects/show',compact('project'));
-//    }
+    public function show(Project $project){
 
-
-    public function show(Filesystem $file){
-
-        dd($file);
 //        $project=Project::find($id);
         return view('projects/show',compact('project'));
     }
 
+
+//    public function show(Filesystem $file){
+//
+//        dd($file);
+////        $project=Project::find($id);
+//        return view('projects/show',compact('project'));
+//    }
+//
 
 }

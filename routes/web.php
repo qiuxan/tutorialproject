@@ -18,11 +18,11 @@
 //    return new \App\Example;
 //});
 
-Route::get('/', function (\App\Services\Twitter $twitter) {
-
-    dd($twitter);
-    return view('welcome');
-});
+//Route::get('/', function (\App\Services\Twitter $twitter) {
+//
+//    dd($twitter);
+//    return view('welcome');
+//});
 
 Route::resource('/projects','ProjectsController');
 
@@ -47,3 +47,7 @@ Route::delete('/completed-tasks/{task}','CompletedTasksController@destroy');
 //Route::delete('/projects/{project}','ProjectsController@destory');
 //
 //Route::post('/projects', 'ProjectsController@store');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
