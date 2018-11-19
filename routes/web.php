@@ -1,5 +1,7 @@
 <?php
 
+//use Illuminate\Filesystem\Filesystem;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,8 +12,15 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+//
+//app()->bind('example',function (){
+//
+//    return new \App\Example;
+//});
 
-Route::get('/', function () {
+Route::get('/', function (\App\Repositories\UserRepository $user) {
+
+    dd($user);
     return view('welcome');
 });
 
