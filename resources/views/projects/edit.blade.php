@@ -57,4 +57,7 @@
 
 
     </form>
+
+    @include('errors')
+
 @endsection

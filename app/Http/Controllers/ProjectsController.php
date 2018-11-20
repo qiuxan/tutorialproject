@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ProjectCreated;
 use App\Project;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
@@ -17,11 +18,25 @@ class ProjectsController extends Controller
 
     public function index(){
 
-        $projects=Project::all();
+       // $projects=auth()->user()->projects;
+//        $projects=Project::all();
+        //$projects=Project::where('owner_id',auth()->id())->get();
+//        dump($projects);
 
+//        cache()->rememberForever('stats',function (){
+//
+//           return ['lessons'=>123, 'hour'=>60];
+//        });
+
+        //$stats=cache()->get('stats');
+
+//        dump($stats);
 //        return $project;
 
-        return view('projects.index',compact('projects'));
+//        return view('projects.index',compact('projects'));
+        return view('projects.index',[
+            'projects'=>auth()->user()->projects,
+        ]);
 
 
     }
@@ -68,18 +83,17 @@ class ProjectsController extends Controller
        // dd(auth()->id());
 
 
-        $attribute=(['owner_id'=>auth()->id()]+request()->validate([
 
 
-                'title'=>['required','min:3','max:255'],
-                'description'=>['required','min:3'],
-
-
-            ]));
+        $attribute=['owner_id'=>auth()->id()]+$this->validateProject();
 
 //        dd($attribute);
 
-        Project::create($attribute);
+        $project=Project::create($attribute);
+
+        \Mail::to('qiuxan2@gmail.com')->send(
+            new ProjectCreated()
+        );
 
         return redirect('/projects');
 
@@ -124,7 +138,16 @@ class ProjectsController extends Controller
 
         $this->authorize('update',$project);
 
-        $project->update(request(['title','description']));
+//        $attribute=request()->validate([
+//
+//
+//                'title'=>['required','min:3','max:255'],
+//                'description'=>['required','min:3'],
+//
+//
+//            ]);
+
+        $project->update($this->validateProject());
 //
 ////        dd(request()->all());
 ////        $project=Project::find($id);
@@ -171,6 +194,8 @@ class ProjectsController extends Controller
 
         $this->authorize('update',$project);
 
+//        dump($project);
+
 //        abort_if(auth()->id()!==$project->owner_id,403);
 
 
@@ -187,5 +212,18 @@ class ProjectsController extends Controller
 //        return view('projects/show',compact('project'));
 //    }
 //
+
+    protected function validateProject(){
+
+        return request()->validate([
+
+
+            'title'=>['required','min:3','max:255'],
+            'description'=>['required','min:3'],
+
+
+        ]);
+    }
+
 
 }
