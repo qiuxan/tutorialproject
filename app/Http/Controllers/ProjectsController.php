@@ -6,6 +6,7 @@ use App\Mail\ProjectCreated;
 use App\Project;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 
 class ProjectsController extends Controller
@@ -70,36 +71,18 @@ class ProjectsController extends Controller
 
 
     public function store(){
-
-
-
-
 //        Project::create([
 //           'title'=>request('title'),
 //            'description'=>request('description'),
 //
 //        ]);
-
        // dd(auth()->id());
-
-
-
-
         $attribute=['owner_id'=>auth()->id()]+$this->validateProject();
-
 //        dd($attribute);
-
         $project=Project::create($attribute);
-
-        \Mail::to('qiuxan2@gmail.com')->send(
-            new ProjectCreated()
-        );
-
+     
         return redirect('/projects');
-
-
     }
-
 //    public function edit($id){
 //
 ////        return $id;
