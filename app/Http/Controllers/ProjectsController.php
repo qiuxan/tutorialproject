@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Mail\ProjectCreated;
 use App\Project;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use App\Events\ProjectCreated;
 
 
 class ProjectsController extends Controller
@@ -80,12 +80,12 @@ class ProjectsController extends Controller
         $attribute=['owner_id'=>auth()->id()]+$this->validateProject();
 //        dd($attribute);
         $project=Project::create($attribute);
-     
+        event(new ProjectCreated($project));     
         return redirect('/projects');
     }
 //    public function edit($id){
 //
-////        return $id;
+////        return $id;:
 //
 //        $project=Project::findOrFail($id);
 //
