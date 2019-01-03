@@ -16,24 +16,23 @@ class Project extends Model
          return $this->hasMany(Task::class);
      }
 
+//    protected static function boot()
+//    {
+//        parent::boot();
+//        static::created(function($project){
+//            Mail::to($project->owner->email)->send(
+//                new ProjectCreated()
+//            );
+//        });
+//    }
+
      public function owner(){
 
          return $this->belongsTo(User::class);
      }
 
      
-     protected static function boot()
-     {
-
-         parent::boot();
-
-         static::created(function($project){
-           Mail::to('qiuxan2@gmail.com')->send(
-            new ProjectCreated()
-        ); 
-         });
-    }
-     public function addTask($task){
+         public function addTask($task){
 
          $this->tasks()->create($task);
 //       return Task::create([

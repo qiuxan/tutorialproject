@@ -70,19 +70,22 @@ class ProjectsController extends Controller
 //    }
 
 
+
     public function store(){
 //        Project::create([
 //           'title'=>request('title'),
 //            'description'=>request('description'),
 //
 //        ]);
-       // dd(auth()->id());
+        // dd(auth()->id());
         $attribute=['owner_id'=>auth()->id()]+$this->validateProject();
 //        dd($attribute);
         $project=Project::create($attribute);
-        event(new ProjectCreated($project));     
+        event(new ProjectCreated($project));
         return redirect('/projects');
     }
+
+
 //    public function edit($id){
 //
 ////        return $id;:
