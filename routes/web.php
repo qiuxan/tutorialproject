@@ -1,5 +1,5 @@
 <?php
-
+use App\Notifications\SubscriptionRenewalFailed;
 //use Illuminate\Filesystem\Filesystem;
 
 /*
@@ -17,6 +17,15 @@
 //
 //    return new \App\Example;
 //});
+
+
+Route::get('/',function(){
+    $user=App\User::first();
+
+    $user->notify(new SubscriptionRenewalFailed);
+
+    return 'Done';
+});
 
 //Route::get('/', function (\App\Services\Twitter $twitter) {
 //
