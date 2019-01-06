@@ -18,20 +18,19 @@ use App\Notifications\SubscriptionRenewalFailed;
 //    return new \App\Example;
 //});
 
-
-Route::get('/',function(){
-    $user=App\User::first();
-
-    $user->notify(new SubscriptionRenewalFailed);
-
-    return 'Done';
-});
-
-//Route::get('/', function (\App\Services\Twitter $twitter) {
 //
-//    dd($twitter);
-//    return view('welcome');
+//Route::get('/',function(){
+//    $user=App\User::first();
+//
+//    $user->notify(new SubscriptionRenewalFailed);
+//
+//    return 'Done';
 //});
+
+Route::get('/', function () {
+
+    return view('welcome');
+});
 
 Route::resource('/projects','ProjectsController');
 
