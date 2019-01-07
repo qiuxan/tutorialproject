@@ -33,6 +33,15 @@ Route::get('/session-testing-project/create', function () {
 
 });
 
+Route::post('/session-testing-project', function () {
+
+    session()->flash('message','project created');
+
+    return redirect('/');
+    //return view('session-testing-project/create');
+
+});
+
 Route::get('/', function () {
 
     return view('welcome');

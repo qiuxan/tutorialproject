@@ -16,6 +16,10 @@
         <div id="app" class="flex-center position-ref full-height">
             
             <example-component></example-component>
+
+            @if(session())
+                {{session('message')}}
+            @endif
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth

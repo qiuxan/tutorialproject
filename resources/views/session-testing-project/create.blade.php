@@ -8,7 +8,7 @@
 </head>
 <body>
 
-    <form action="/" method="">
+    <form action="/session-testing-project" method="post">
 
         {{csrf_field()}}
         <div><input type="text"  name="title"></div>
