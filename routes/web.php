@@ -27,6 +27,12 @@ use App\Notifications\SubscriptionRenewalFailed;
 //    return 'Done';
 //});
 
+Route::get('/session-testing-project/create', function () {
+
+    return view('session-testing-project/create');
+
+});
+
 Route::get('/', function () {
 
     return view('welcome');
